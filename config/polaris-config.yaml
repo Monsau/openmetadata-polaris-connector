@@ -1,0 +1,53 @@
+source:
+  type: iceberg
+  serviceName: apache-polaris-catalog
+  serviceConnection:
+    config:
+      type: Iceberg
+      hostPort: http://localhost:8181
+      # Apache Polaris Iceberg REST Catalog Configuration
+      catalog: polaris
+      warehouse: s3://polaris-warehouse/
+      connectionArguments:
+        catalog-impl: org.apache.polaris.catalog.PolarisHadoopCatalog
+        warehouse: /tmp/polaris-warehouse
+        uri: http://localhost:8181
+        credential: polaris:polaris-realm
+      # Polaris-specific metadata extraction settings
+      supportsMetadataExtraction: true
+      supportsLineage: true
+      supportsDBTExtraction: false
+      supportsProfiler: true
+      supportsUsageExtraction: false
+  sourceConfig:
+    config:
+      type: DatabaseMetadata
+      # Enhanced metadata extraction for Apache Polaris
+      markDeletedTables: true
+      includeTables: true
+      includeViews: true
+      includeTags: true
+      includeOwners: true
+      includeStoredProcedures: false
+      includeViewLineage: true
+      includeViewColumnLineage: true
+      includeTableLineage: true
+      # Dynamic discovery - no filters to allow all schemas and tables
+      # This enables Polaris to dynamically discover any new catalogs, schemas, and tables
+
+sink:
+  type: metadata-rest
+  config:
+    openMetadataServerConfig:
+      hostPort: http://localhost:8585/api
+      authProvider: openmetadata
+      securityConfig:
+        jwtToken: "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImdlbmVyaWMtaW5nZXN0aW9uLWJvdCIsInJvbGVzIjpbXSwiZW1haWwiOiJnZW5lcmljLWluZ2VzdGlvbi1ib3RAdGFsZW50eXMuZXUiLCJpc0JvdCI6dHJ1ZSwidG9rZW5UeXBlIjoiQk9UIiwiaWF0IjoxNzU4MTM2NTI4LCJleHAiOm51bGx9.Hy4ed-YPdwKeZ71viL1G2JmQzo-gSdfa7MiKGj8ujgx4znEjuzFqRl15mhqsKjhSjnU-f6v_IV1Qe5kcxxaKScxq3HPPGF6snl2CgZBPXCu9QhSDQBLZO5FIY-vy8h9iLQXOYNoYj79-y7Xqu82O15vLpzHjh4_fOXJ59X0_oiq3NpIrv8eUv93K-nFqDwNPF00SwykEuoRcYNnhWueOy8e_MVkWv66kT74YKqS-iS-c6w18i0YXNnkUwt_RvzMf7-ZI6xuSV7A6xrWdFpC_2rIUJluBR2BWooLwDaA578KkjX8Rqe8VLA2vIBJlKw97Q1JY0a34lRGCiIk2HJBVHQ"
+
+workflowConfig:
+  loggerLevel: INFO
+  openMetadataServerConfig:
+    hostPort: http://localhost:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImdlbmVyaWMtaW5nZXN0aW9uLWJvdCIsInJvbGVzIjpbXSwiZW1haWwiOiJnZW5lcmljLWluZ2VzdGlvbi1ib3RAdGFsZW50eXMuZXUiLCJpc0JvdCI6dHJ1ZSwidG9rZW5UeXBlIjoiQk9UIiwiaWF0IjoxNzU4MTM2NTI4LCJleHAiOm51bGx9.Hy4ed-YPdwKeZ71viL1G2JmQzo-gSdfa7MiKGj8ujgx4znEjuzFqRl15mhqsKjhSjnU-f6v_IV1Qe5kcxxaKScxq3HPPGF6snl2CgZBPXCu9QhSDQBLZO5FIY-vy8h9iLQXOYNoYj79-y7Xqu82O15vLpzHjh4_fOXJ59X0_oiq3NpIrv8eUv93K-nFqDwNPF00SwykEuoRcYNnhWueOy8e_MVkWv66kT74YKqS-iS-c6w18i0YXNnkUwt_RvzMf7-ZI6xuSV7A6xrWdFpC_2rIUJluBR2BWooLwDaA578KkjX8Rqe8VLA2vIBJlKw97Q1JY0a34lRGCiIk2HJBVHQ"

@@ -1,0 +1,4 @@
+-- Initialize Polaris database
+CREATE DATABASE IF NOT EXISTS polaris;
+CREATE USER IF NOT EXISTS polaris WITH PASSWORD 'polaris123';
+GRANT ALL PRIVILEGES ON DATABASE polaris TO polaris;

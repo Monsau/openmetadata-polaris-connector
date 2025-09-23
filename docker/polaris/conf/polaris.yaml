@@ -1,0 +1,44 @@
+# Polaris Configuration
+polaris.host: 0.0.0.0
+polaris.port: 8181
+
+# Authentication
+auth:
+  type: oauth2
+  oauth2:
+    issuer-url: http://localhost:8181/oauth2
+    token-endpoint: /oauth2/token
+    authorization-endpoint: /oauth2/authorize
+
+# Metastore Configuration
+metastore:
+  type: memory  # For demo purposes, use 'jdbc' for production with PostgreSQL
+  
+# JDBC configuration (if using PostgreSQL)
+# metastore:
+#   type: jdbc
+#   jdbc:
+#     url: jdbc:postgresql://postgres:5432/polaris
+#     user: polaris
+#     password: polaris123
+#     driver-class-name: org.postgresql.Driver
+
+# CORS Configuration
+cors:
+  allowed-origins:
+    - http://localhost:3000
+    - http://localhost:8585  # OpenMetadata default port
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowed-headers:
+    - "*"
+
+# Logging
+logging:
+  level:
+    org.apache.polaris: INFO
+    root: WARN

@@ -1,0 +1,179 @@
+{
+  "$id": "https://open-metadata.org/schema/entity/services/connections/database/polarisConnection.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PolarisConnection",
+  "description": "Apache Polaris catalog connection configuration",
+  "type": "object",
+  "javaType": "org.openmetadata.schema.services.connections.database.PolarisConnection",
+  "definitions": {
+    "polarisType": {
+      "description": "Service type",
+      "type": "string",
+      "enum": ["Polaris"],
+      "default": "Polaris"
+    },
+    "authType": {
+      "description": "Authentication type for Polaris",
+      "type": "string",
+      "enum": ["oauth2", "api_key", "basic"],
+      "default": "oauth2"
+    }
+  },
+  "properties": {
+    "type": {
+      "title": "Service Type",
+      "description": "Service Type",
+      "$ref": "#/definitions/polarisType",
+      "default": "Polaris"
+    },
+    "hostPort": {
+      "title": "Host and Port",
+      "description": "Polaris service host and port (e.g., localhost:8181)",
+      "type": "string",
+      "format": "uri"
+    },
+    "authType": {
+      "title": "Authentication Type",
+      "description": "Authentication method to use for connecting to Polaris",
+      "$ref": "#/definitions/authType",
+      "default": "oauth2"
+    },
+    "oauthConfig": {
+      "title": "OAuth2 Configuration",
+      "description": "OAuth2 authentication configuration",
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "title": "Client ID",
+          "description": "OAuth2 client identifier",
+          "type": "string"
+        },
+        "client_secret": {
+          "title": "Client Secret",
+          "description": "OAuth2 client secret",
+          "type": "string",
+          "format": "password"
+        },
+        "token_url": {
+          "title": "Token URL",
+          "description": "OAuth2 token endpoint URL",
+          "type": "string",
+          "format": "uri"
+        },
+        "scope": {
+          "title": "Scope",
+          "description": "OAuth2 scope (optional)",
+          "type": "string"
+        }
+      },
+      "required": ["client_id", "client_secret", "token_url"],
+      "additionalProperties": false
+    },
+    "apiKey": {
+      "title": "API Key",
+      "description": "API key for authentication",
+      "type": "string",
+      "format": "password"
+    },
+    "basicAuth": {
+      "title": "Basic Authentication",
+      "description": "Basic authentication credentials",
+      "type": "object",
+      "properties": {
+        "username": {
+          "title": "Username",
+          "description": "Username for basic authentication",
+          "type": "string"
+        },
+        "password": {
+          "title": "Password",
+          "description": "Password for basic authentication",
+          "type": "string",
+          "format": "password"
+        }
+      },
+      "required": ["username", "password"],
+      "additionalProperties": false
+    },
+    "sslEnabled": {
+      "title": "SSL Enabled",
+      "description": "Enable SSL/TLS for connections",
+      "type": "boolean",
+      "default": false
+    },
+    "sslCertificate": {
+      "title": "SSL Certificate",
+      "description": "Path to SSL certificate file",
+      "type": "string"
+    },
+    "connectionTimeout": {
+      "title": "Connection Timeout",
+      "description": "Connection timeout in seconds",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 300,
+      "default": 30
+    },
+    "requestTimeout": {
+      "title": "Request Timeout",
+      "description": "Request timeout in seconds",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 600,
+      "default": 60
+    },
+    "catalogFilter": {
+      "title": "Catalog Filter",
+      "description": "Regex pattern to filter catalogs (optional)",
+      "type": "string"
+    },
+    "namespaceFilter": {
+      "title": "Namespace Filter",
+      "description": "Regex pattern to filter namespaces (optional)",
+      "type": "string"
+    },
+    "tableFilter": {
+      "title": "Table Filter",
+      "description": "Regex pattern to filter tables (optional)",
+      "type": "string"
+    },
+    "connectionOptions": {
+      "title": "Connection Options",
+      "$ref": "../connectionBasicType.json#/definitions/connectionOptions"
+    },
+    "connectionArguments": {
+      "title": "Connection Arguments",
+      "$ref": "../connectionBasicType.json#/definitions/connectionArguments"
+    },
+    "supportsMetadataExtraction": {
+      "title": "Supports Metadata Extraction",
+      "$ref": "../connectionBasicType.json#/definitions/supportsMetadataExtraction"
+    },
+    "supportsUsageExtraction": {
+      "title": "Supports Usage Extraction",
+      "$ref": "../connectionBasicType.json#/definitions/supportsUsageExtraction"
+    },
+    "supportsLineageExtraction": {
+      "title": "Supports Lineage Extraction",
+      "$ref": "../connectionBasicType.json#/definitions/supportsLineageExtraction"
+    },
+    "supportsDBTExtraction": {
+      "title": "Supports dbt Extraction",
+      "$ref": "../connectionBasicType.json#/definitions/supportsDBTExtraction"
+    },
+    "supportsProfiler": {
+      "title": "Supports Profiler",
+      "$ref": "../connectionBasicType.json#/definitions/supportsProfiler"
+    },
+    "supportsDatabase": {
+      "title": "Supports Database",
+      "$ref": "../connectionBasicType.json#/definitions/supportsDatabase"
+    },
+    "supportsQueryComment": {
+      "title": "Supports Query Comment",
+      "$ref": "../connectionBasicType.json#/definitions/supportsQueryComment"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["hostPort", "authType"]
+}
