@@ -1,0 +1,30 @@
+# Example configuration for development environment
+
+source:
+  type: customDatabase
+  serviceName: polaris-dev
+  serviceConnection:
+    config:
+      type: CustomDatabase
+      sourcePythonClass: connectors.polaris.polaris_connector.PolarisSource
+      connectionOptions:
+        host: "localhost"
+        port: "8181"
+        use_ssl: "false"
+        auth_type: "oauth2"
+        client_id: "dev-client-id"
+        client_secret: "dev-client-secret"
+        catalog_filter: "dev_catalog"
+        default_tags: "Tier.Bronze,Environment.Development"
+
+sink:
+  type: metadata-rest
+  config: {}
+
+workflowConfig:
+  loggerLevel: DEBUG
+  openMetadataServerConfig:
+    hostPort: http://localhost:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: "DEV_JWT_TOKEN_HERE"

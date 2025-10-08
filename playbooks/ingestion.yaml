@@ -1,0 +1,61 @@
+source:
+  type: customDatabase
+  serviceName: polaris-catalog # Display name for your service in OpenMetadata
+  serviceConnection:
+    config:
+      type: CustomDatabase
+      # Python import path to the main connector class
+      sourcePythonClass: connectors.polaris.polaris_connector.PolarisSource
+      connectionOptions:
+        # --- Polaris Connection Configuration ---
+        
+        # Required: Polaris server details
+        host: "localhost"
+        port: "8181"
+        use_ssl: "false"
+        
+        # Authentication Type: oauth2, api_key, or basic
+        auth_type: "oauth2"
+        
+        # OAuth2 Configuration (required if auth_type = oauth2)
+        client_id: "YOUR_CLIENT_ID"
+        client_secret: "YOUR_CLIENT_SECRET"
+        token_url: "/v1/oauth/token"  # Optional, defaults to /v1/oauth/token
+        
+        # API Key Configuration (required if auth_type = api_key)
+        # api_key: "YOUR_API_KEY"
+        
+        # Basic Auth Configuration (required if auth_type = basic)
+        # username: "YOUR_USERNAME"
+        # password: "YOUR_PASSWORD"
+        
+        # --- Optional Connection Settings ---
+        connection_timeout: "30"  # Connection timeout in seconds
+        request_timeout: "60"     # Request timeout in seconds
+        
+        # --- Filtering Options ---
+        # Comma-separated list of catalogs to include (empty = all catalogs)
+        catalog_filter: ""
+        # Example: "catalog1,catalog2"
+        
+        # Comma-separated list of namespaces to include (empty = all namespaces)
+        namespace_filter: ""
+        # Example: "namespace1,namespace2"
+        
+        # --- Tagging Configuration ---
+        # Default tags to apply to all tables. Format: "TagFQN1,TagFQN2"
+        # IMPORTANT: Tags must exist in your OpenMetadata instance beforehand
+        default_tags: ""
+        # Example: "Tier.Bronze,PolarisSource"
+
+sink:
+  type: metadata-rest
+  config: {}
+
+workflowConfig:
+  loggerLevel: INFO  # Can be set to DEBUG for more verbose output
+  openMetadataServerConfig:
+    hostPort: http://localhost:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: "YOUR_JWT_TOKEN"

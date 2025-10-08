@@ -23,11 +23,11 @@ python -m pip install --upgrade pip
 
 # Install dependencies
 echo "Installing dependencies..."
-pip install -e ".[dev]"
+pip install -r requirements.txt
 
-# Install pre-commit hooks
-echo "Setting up pre-commit hooks..."
-pre-commit install
+# Install package in development mode
+echo "Installing connector package..."
+pip install -e .
 
 echo ""
 echo "Setup complete!"
@@ -35,8 +35,8 @@ echo ""
 echo "To activate the virtual environment, run:"
 echo "  source venv/bin/activate"
 echo ""
-echo "To start Polaris with Docker, run:"
-echo "  docker-compose up -d polaris"
+echo "To test the connector configuration, run:"
+echo "  python validate.py"
 echo ""
-echo "To populate sample data, run:"
-echo "  python scripts/setup_sample_data.py"
+echo "To run ingestion, run:"
+echo "  metadata ingest -c playbooks/ingestion.yaml"

@@ -1,0 +1,33 @@
+# Example configuration for production environment
+
+source:
+  type: customDatabase
+  serviceName: polaris-production
+  serviceConnection:
+    config:
+      type: CustomDatabase
+      sourcePythonClass: connectors.polaris.polaris_connector.PolarisSource
+      connectionOptions:
+        host: "polaris.company.com"
+        port: "443"
+        use_ssl: "true"
+        auth_type: "oauth2"
+        client_id: "${POLARIS_CLIENT_ID}"
+        client_secret: "${POLARIS_CLIENT_SECRET}"
+        connection_timeout: "60"
+        request_timeout: "120"
+        catalog_filter: "production,staging"
+        namespace_filter: ""
+        default_tags: "Tier.Gold,Environment.Production,Source.Polaris"
+
+sink:
+  type: metadata-rest
+  config: {}
+
+workflowConfig:
+  loggerLevel: INFO
+  openMetadataServerConfig:
+    hostPort: https://openmetadata.company.com/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: "${OPENMETADATA_JWT_TOKEN}"

@@ -173,6 +173,10 @@ Thumbs.db
 # Project specific
 demo_results.json
 *.log
-.polaris/
-docker/polaris/data/
-docker/postgres/data/
+
+# Connector specific
+*.token
+config/secrets.*
+playbooks/*-local.yaml
+.env.local
+openmetadata-logs/
