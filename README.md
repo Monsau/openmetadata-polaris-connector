@@ -5,14 +5,14 @@ Welcome to the Polaris ↔ OpenMetadata connector! This project provides a profe
 
 ---
 
-## 📚 Documentation
+##  Documentation
 
 - **[Full Technical Documentation (multi-language)](./full_documentation.md)**
 - [Français](./README-fr.md) | [Español](./README-es.md) | [العربية](./README-ar.md)
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 1. **Clone the repository**
    ```powershell
@@ -46,7 +46,7 @@ For advanced configuration, troubleshooting, and architecture details, see [full
 
 ---
 
-## 🏗️ Project Structure
+## ️ Project Structure
 
 - `full_documentation.md` — Complete technical guide (EN, FR, ES, AR)
 - `README-fr.md`, `README-es.md`, `README-ar.md` — Language-specific quickstart and links
@@ -59,7 +59,7 @@ For advanced configuration, troubleshooting, and architecture details, see [full
 
 ---
 
-## 🤝 Contributing & Support
+##  Contributing & Support
 
 We welcome contributions in all languages! For details, see the [contribution guidelines](./full_documentation.md#-contributing--contribution--contribución--المساهمة).
 
@@ -67,4 +67,4 @@ For support, open a GitHub issue or see the [Support section](./full_documentati
 
 ---
 
-**Built with ❤️ for the global data community**
+**Built with ️ for the global data community**

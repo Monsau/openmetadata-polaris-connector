@@ -1,4 +1,4 @@
-# 🇪🇸 Documentación Completa Española
+#  Documentación Completa Española
 
 Para la documentación completa en español, consulte la sección correspondiente en [`full_documentation.md`](./full_documentation.md#-documentación-completa-española).
 

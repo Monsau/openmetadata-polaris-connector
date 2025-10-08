@@ -1,4 +1,4 @@
-# 🇫🇷 Documentation Complète Française
+#  Documentation Complète Française
 
 Pour la documentation complète en français, consultez la section correspondante dans [`full_documentation.md`](./full_documentation.md#-documentation-complète-française).
 

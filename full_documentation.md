@@ -1,26 +1,26 @@
-# 🌟 Apache Polaris ↔ OpenMetadata Integration Platform
+#  Apache Polaris ↔ OpenMetadata Integration Platform
 *Complete Professional Documentation - Enterprise-Grade Metadata Ingestion Toolkit*
 
 ---
 
-## 🌐 Multi-Language Documentation | Documentation Multilingue | Documentación Multilingüe | وثائق متعددة اللغات
+##  Multi-Language Documentation | Documentation Multilingue | Documentación Multilingüe | وثائق متعددة اللغات
 
 | Language | Section | Status |
 |----------|---------|--------|
-| 🇺🇸 **English** | [Complete Technical Guide](#-english-complete-documentation) | ✅ Full Coverage |
-| 🇫🇷 **Français** | [Guide Technique Complet](#-documentation-complète-française) | ✅ Couverture Complète |
-| 🇪🇸 **Español** | [Guía Técnica Completa](#-documentación-completa-española) | ✅ Cobertura Completa |
-| 🇸🇦 **العربية** | [الدليل التقني الكامل](#-الوثائق-العربية-الكاملة) | ✅ تغطية كاملة |
+|  **English** | [Complete Technical Guide](#-english-complete-documentation) |  Full Coverage |
+|  **Français** | [Guide Technique Complet](#-documentation-complète-française) |  Couverture Complète |
+|  **Español** | [Guía Técnica Completa](#-documentación-completa-española) |  Cobertura Completa |
+|  **العربية** | [الدليل التقني الكامل](#-الوثائق-العربية-الكاملة) |  تغطية كاملة |
 
 ---
 
-# 🇺🇸 English Complete Documentation
+#  English Complete Documentation
 
-## 🚀 Executive Summary
+##  Executive Summary
 
 The **Apache Polaris ↔ OpenMetadata Integration Platform** is an enterprise-grade metadata ingestion solution that seamlessly bridges Apache Polaris (Iceberg catalog) with OpenMetadata. This platform provides automated schema discovery, intelligent metadata enrichment, comprehensive data lineage tracking, and professional-grade operational monitoring.
 
-### 🎯 Business Value Proposition
+###  Business Value Proposition
 
 - **Automated Data Discovery**: Reduces manual catalog management by 90%
 - **Enhanced Data Governance**: Provides complete metadata lineage and audit trails
@@ -28,7 +28,7 @@ The **Apache Polaris ↔ OpenMetadata Integration Platform** is an enterprise-gr
 - **Enterprise Scalability**: Handles large-scale catalog operations with robust error handling
 - **Multi-Technology Integration**: Seamless bridge between modern data lake and metadata platforms
 
-## 🏗️ Comprehensive System Architecture
+## ️ Comprehensive System Architecture
 
 ### High-Level Architecture Overview
 
@@ -139,7 +139,7 @@ The **Apache Polaris ↔ OpenMetadata Integration Platform** is an enterprise-gr
 - Conflict resolution for existing entities
 - Metadata publishing and verification
 
-## 🛠️ Technology Stack & Dependencies
+## ️ Technology Stack & Dependencies
 
 ### Core Technologies
 
@@ -162,7 +162,7 @@ The **Apache Polaris ↔ OpenMetadata Integration Platform** is an enterprise-gr
 | **Linting** | flake8 | 6.0+ | Code quality checks |
 | **Type Checking** | mypy | 1.0+ | Static type analysis |
 
-## 📋 System Requirements & Prerequisites
+##  System Requirements & Prerequisites
 
 ### Infrastructure Requirements
 
@@ -190,7 +190,7 @@ The **Apache Polaris ↔ OpenMetadata Integration Platform** is an enterprise-gr
 - **curl** for API testing
 - **jq** for JSON processing
 
-## 🚀 Complete Installation & Setup Guide
+##  Complete Installation & Setup Guide
 
 ### Step 1: Environment Preparation
 
@@ -351,9 +351,9 @@ advanced:
 python -m src.polaris_ingestion.main --health-check-only
 
 # Expected output:
-# ✅ Polaris service is healthy
-# ✅ OpenMetadata service is healthy
-# ✅ All systems ready for ingestion
+#  Polaris service is healthy
+#  OpenMetadata service is healthy
+#  All systems ready for ingestion
 ```
 
 #### 4.2 Demo Data Setup (Optional)
@@ -380,7 +380,7 @@ python -m src.polaris_ingestion.main --verbose
 python -m src.polaris_ingestion.main --verify-only
 ```
 
-## 📁 Complete Project Structure
+##  Complete Project Structure
 
 ```
 polaris/                                    # Project root directory
@@ -454,9 +454,9 @@ polaris/                                    # Project root directory
     └── troubleshooting/                    # Troubleshooting guides
 ```
 
-## 🎯 Feature Specifications
+##  Feature Specifications
 
-### 🔍 Dynamic Discovery Features
+###  Dynamic Discovery Features
 
 #### Catalog Discovery
 - **Automated Catalog Enumeration**: Discovers all available catalogs in Polaris
@@ -470,7 +470,7 @@ polaris/                                    # Project root directory
 - **Runtime Configuration**: Filters can be modified without code changes
 - **Performance Optimization**: Skip processing of unwanted data sources
 
-### 🔄 Metadata Transformation
+###  Metadata Transformation
 
 #### Schema Mapping
 - **Type Conversion**: Intelligent mapping between Iceberg and OpenMetadata types
@@ -484,7 +484,7 @@ polaris/                                    # Project root directory
 - **Relationship Discovery**: Identifies potential foreign key relationships
 - **Data Quality Annotations**: Adds data quality metrics where available
 
-### 📊 Publishing & Integration
+###  Publishing & Integration
 
 #### Service Management
 - **Automated Service Creation**: Creates OpenMetadata services for Polaris catalogs
@@ -498,7 +498,7 @@ polaris/                                    # Project root directory
 - **Error Recovery**: Graceful handling of API conflicts and failures
 - **Rollback Capability**: Transaction-like behavior for batch operations
 
-### 🔧 Operational Features
+###  Operational Features
 
 #### Health Monitoring
 - **Service Health Checks**: Comprehensive health verification for all services
@@ -512,7 +512,7 @@ polaris/                                    # Project root directory
 - **Partial Success**: Continue processing when possible after errors
 - **Detailed Logging**: Comprehensive error reporting and debugging information
 
-## 📖 Usage Examples & Best Practices
+##  Usage Examples & Best Practices
 
 ### Basic Usage Patterns
 
@@ -657,7 +657,7 @@ print(f'OpenMetadata URL: {config.openmetadata.base_url}')
 "
 ```
 
-## 🔧 API Integration Details
+##  API Integration Details
 
 ### Polaris API Integration
 
@@ -726,7 +726,7 @@ def create_table(self, table_data: dict):
     return response.json()
 ```
 
-## 🚨 Troubleshooting Guide
+##  Troubleshooting Guide
 
 ### Common Issues & Solutions
 
@@ -842,7 +842,7 @@ export DEBUG_HTTP=1
 python -m src.polaris_ingestion.main
 ```
 
-## 📈 Performance Optimization
+##  Performance Optimization
 
 ### Scaling Configurations
 
@@ -913,7 +913,7 @@ EOF
 chmod +x monitor_ingestion.sh
 ```
 
-## 🔒 Security & Authentication
+##  Security & Authentication
 
 ### Security Configuration
 
@@ -975,13 +975,13 @@ advanced:
 
 ---
 
-# 🇫🇷 Documentation Complète Française
+#  Documentation Complète Française
 
-## 🚀 Résumé Exécutif
+##  Résumé Exécutif
 
 La **Plateforme d'Intégration Apache Polaris ↔ OpenMetadata** est une solution d'ingestion de métadonnées de niveau entreprise qui connecte de manière transparente Apache Polaris (catalogue Iceberg) avec OpenMetadata. Cette plateforme fournit la découverte automatique de schémas, l'enrichissement intelligent des métadonnées, le suivi complet de la lignée des données et la surveillance opérationnelle de niveau professionnel.
 
-### 🎯 Proposition de Valeur Métier
+###  Proposition de Valeur Métier
 
 - **Découverte Automatique des Données**: Réduit la gestion manuelle des catalogues de 90%
 - **Gouvernance des Données Améliorée**: Fournit une lignée de métadonnées complète et des pistes d'audit
@@ -989,7 +989,7 @@ La **Plateforme d'Intégration Apache Polaris ↔ OpenMetadata** est une solutio
 - **Évolutivité Entreprise**: Gère les opérations de catalogue à grande échelle avec une gestion robuste des erreurs
 - **Intégration Multi-Technologie**: Pont transparent entre lac de données moderne et plateformes de métadonnées
 
-## 🏗️ Architecture Système Complète
+## ️ Architecture Système Complète
 
 ### Vue d'Ensemble de l'Architecture de Haut Niveau
 
@@ -1020,7 +1020,7 @@ La **Plateforme d'Intégration Apache Polaris ↔ OpenMetadata** est une solutio
 └───────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## 🛠️ Pile Technologique et Dépendances
+## ️ Pile Technologique et Dépendances
 
 ### Technologies Centrales
 
@@ -1031,7 +1031,7 @@ La **Plateforme d'Intégration Apache Polaris ↔ OpenMetadata** est une solutio
 | **Environnement d'Exécution** | Python | 3.13+ | Implémentation centrale | PSF |
 | **Configuration** | PyYAML | 6.0+ | Traitement YAML | MIT |
 
-## 📋 Exigences Système et Prérequis
+##  Exigences Système et Prérequis
 
 ### Exigences d'Infrastructure
 
@@ -1048,7 +1048,7 @@ La **Plateforme d'Intégration Apache Polaris ↔ OpenMetadata** est une solutio
 - **Python** 3.13+ avec gestionnaire de paquets pip
 - **Git** pour le contrôle de version et l'accès au dépôt
 
-## 🚀 Guide Complet d'Installation et Configuration
+##  Guide Complet d'Installation et Configuration
 
 ### Étape 1: Préparation de l'Environnement
 
@@ -1103,9 +1103,9 @@ cp config/polaris-config.yaml.example config/polaris-config.yaml
 notepad config/polaris-config.yaml
 ```
 
-## 🎯 Spécifications des Fonctionnalités
+##  Spécifications des Fonctionnalités
 
-### 🔍 Fonctionnalités de Découverte Dynamique
+###  Fonctionnalités de Découverte Dynamique
 
 #### Découverte de Catalogue
 - **Énumération Automatique de Catalogue**: Découvre tous les catalogues disponibles dans Polaris
@@ -1113,7 +1113,7 @@ notepad config/polaris-config.yaml
 - **Identification de Tables**: Identifie toutes les tables avec leurs noms complets qualifiés
 - **Extraction de Schéma**: Récupère les schémas complets des tables incluant les définitions de colonnes
 
-### 🔄 Transformation des Métadonnées
+###  Transformation des Métadonnées
 
 #### Mappage de Schéma
 - **Conversion de Type**: Mappage intelligent entre types Iceberg et OpenMetadata
@@ -1123,13 +1123,13 @@ notepad config/polaris-config.yaml
 
 ---
 
-# 🇪🇸 Documentación Completa Española
+#  Documentación Completa Española
 
-## 🚀 Resumen Ejecutivo
+##  Resumen Ejecutivo
 
 La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una solución de ingesta de metadatos de nivel empresarial que conecta sin problemas Apache Polaris (catálogo Iceberg) con OpenMetadata. Esta plataforma proporciona descubrimiento automático de esquemas, enriquecimiento inteligente de metadatos, seguimiento completo del linaje de datos y monitoreo operacional de nivel profesional.
 
-### 🎯 Propuesta de Valor Empresarial
+###  Propuesta de Valor Empresarial
 
 - **Descubrimiento Automático de Datos**: Reduce la gestión manual de catálogos en un 90%
 - **Gobernanza de Datos Mejorada**: Proporciona linaje completo de metadatos y pistas de auditoría
@@ -1137,7 +1137,7 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 - **Escalabilidad Empresarial**: Maneja operaciones de catálogo a gran escala con manejo robusto de errores
 - **Integración Multi-Tecnología**: Puente transparente entre lago de datos moderno y plataformas de metadatos
 
-## 🏗️ Arquitectura del Sistema Completa
+## ️ Arquitectura del Sistema Completa
 
 ### Visión General de Arquitectura de Alto Nivel
 
@@ -1168,7 +1168,7 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 └───────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## 🛠️ Stack Tecnológico y Dependencias
+## ️ Stack Tecnológico y Dependencias
 
 ### Tecnologías Centrales
 
@@ -1181,13 +1181,13 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 
 ---
 
-# 🇸🇦 الوثائق العربية الكاملة
+#  الوثائق العربية الكاملة
 
-## 🚀 الملخص التنفيذي
+##  الملخص التنفيذي
 
 **منصة التكامل Apache Polaris ↔ OpenMetadata** هي حل استيعاب البيانات الوصفية على مستوى المؤسسة والذي يربط بسلاسة بين Apache Polaris (كتالوج Iceberg) و OpenMetadata. توفر هذه المنصة الاكتشاف التلقائي للمخططات، والإثراء الذكي للبيانات الوصفية، والتتبع الشامل لنسب البيانات، والمراقبة التشغيلية على المستوى المهني.
 
-### 🎯 اقتراح القيمة التجارية
+###  اقتراح القيمة التجارية
 
 - **الاكتشاف التلقائي للبيانات**: يقلل من الإدارة اليدوية للكتالوجات بنسبة 90%
 - **حوكمة البيانات المحسنة**: يوفر نسب البيانات الوصفية الكاملة ومسارات التدقيق
@@ -1195,7 +1195,7 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 - **قابلية التوسع المؤسسي**: يتعامل مع عمليات الكتالوج واسعة النطاق مع معالجة قوية للأخطاء
 - **التكامل متعدد التقنيات**: جسر سلس بين بحيرة البيانات الحديثة ومنصات البيانات الوصفية
 
-## 🏗️ معمارية النظام الكاملة
+## ️ معمارية النظام الكاملة
 
 ### نظرة عامة على معمارية المستوى العالي
 
@@ -1226,7 +1226,7 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 └───────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## 🛠️ المكدس التقني والتبعيات
+## ️ المكدس التقني والتبعيات
 
 ### التقنيات المركزية
 
@@ -1237,7 +1237,7 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 | **بيئة التشغيل** | Python | 3.13+ | التنفيذ المركزي | PSF |
 | **التكوين** | PyYAML | 6.0+ | معالجة YAML | MIT |
 
-## 📋 متطلبات النظام والمتطلبات المسبقة
+##  متطلبات النظام والمتطلبات المسبقة
 
 ### متطلبات البنية التحتية
 
@@ -1254,7 +1254,7 @@ La **Plataforma de Integración Apache Polaris ↔ OpenMetadata** es una soluci�
 - **Python** 3.13+ مع مدير حزم pip
 - **Git** للتحكم في الإصدارات والوصول إلى المستودع
 
-## 🚀 دليل التثبيت والإعداد الكامل
+##  دليل التثبيت والإعداد الكامل
 
 ### الخطوة 1: إعداد البيئة
 
@@ -1309,9 +1309,9 @@ cp config/polaris-config.yaml.example config/polaris-config.yaml
 notepad config/polaris-config.yaml
 ```
 
-## 🎯 مواصفات الميزات
+##  مواصفات الميزات
 
-### 🔍 ميزات الاكتشاف الديناميكي
+###  ميزات الاكتشاف الديناميكي
 
 #### اكتشاف الكتالوج
 - **التعداد التلقائي للكتالوج**: يكتشف جميع الكتالوجات المتاحة في Polaris
@@ -1319,7 +1319,7 @@ notepad config/polaris-config.yaml
 - **تحديد الجداول**: يحدد جميع الجداول بأسمائها المؤهلة الكاملة
 - **استخراج المخطط**: يسترد مخططات الجداول الكاملة بما في ذلك تعريفات الأعمدة
 
-### 🔄 تحويل البيانات الوصفية
+###  تحويل البيانات الوصفية
 
 #### ربط المخطط
 - **تحويل النوع**: ربط ذكي بين أنواع Iceberg و OpenMetadata
@@ -1329,7 +1329,7 @@ notepad config/polaris-config.yaml
 
 ---
 
-## 🤝 Contributing | Contribution | Contribución | المساهمة
+##  Contributing | Contribution | Contribución | المساهمة
 
 We welcome contributions in all languages! Please see our contribution guidelines for more information.
 
@@ -1339,7 +1339,7 @@ Nous accueillons les contributions dans toutes les langues ! Veuillez consulter 
 
 نرحب بالمساهمات بجميع اللغات! يرجى الاطلاع على إرشادات المساهمة للحصول على مزيد من المعلومات.
 
-## 📞 Support | Assistance | Soporte | الدعم
+##  Support | Assistance | Soporte | الدعم
 
 For support in any language, please reach out through our community channels:
 
@@ -1353,7 +1353,7 @@ Para soporte en cualquier idioma, comuníquese a través de nuestros canales com
 - **Community Forum**: General questions and discussions  
 - **Documentation**: This comprehensive guide and inline code comments
 
-## 📄 License | Licence | Licencia | الترخيص
+##  License | Licence | Licencia | الترخيص
 
 This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
 
@@ -1365,10 +1365,10 @@ Este proyecto está licenciado bajo la Licencia Apache 2.0 - consulte el archivo
 
 ---
 
-**Built with ❤️ for the global data community**  
-**Construit avec ❤️ pour la communauté mondiale des données**  
-**Construido con ❤️ para la comunidad global de datos**  
-**مبني بـ ❤️ لمجتمع البيانات العالمي**
+**Built with ️ for the global data community**  
+**Construit avec ️ pour la communauté mondiale des données**  
+**Construido con ️ para la comunidad global de datos**  
+**مبني بـ ️ لمجتمع البيانات العالمي**
 
 ---
 
