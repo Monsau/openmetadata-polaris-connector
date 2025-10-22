@@ -1,0 +1,36 @@
+{
+  "$id": "https://open-metadata.org/schema/entity/services/connections/database/customDatabaseConnection.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PolarisConnection",
+  "description": "Apache Polaris Custom Connection to build for OpenMetadata",
+  "type": "object",
+  "javaType": "org.openmetadata.schema.services.connections.database.CustomDatabaseConnection",
+  "definitions": {
+    "polarisType": {
+      "description": "Service type for Polaris connector",
+      "type": "string",
+      "enum": ["Polaris"],
+      "default": "Polaris"
+    }
+  },
+  "properties": {
+    "type": {
+      "title": "Service Type",
+      "description": "Service Type",
+      "$ref": "#/definitions/polarisType",
+      "default": "Polaris"
+    },
+    "sourcePythonClass": {
+      "title": "Source Python Class Name",
+      "description": "Source Python Class Name to import",
+      "type": "string",
+      "default": "polaris_connector.polaris_source.PolarisSource"
+    },
+    "connectionOptions": {
+      "title": "Connection Options",
+      "$ref": "../connectionBasicType.json#/definitions/connectionOptions"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["sourcePythonClass"]
+}
