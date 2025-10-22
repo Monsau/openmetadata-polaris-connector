@@ -107,43 +107,104 @@ class PolarisSource(Source):
         logger.info(f"Namespace filter: {self.namespace_filter}")
 
     def _parse_connection_config(self):
-        """Parse connection configuration from OpenMetadata format."""
-        service_connection_config = self.config.serviceConnection.root.config
-        connection_options = service_connection_config.connectionOptions.root if hasattr(service_connection_config, 'connectionOptions') else {}
+        """
+        Parse connection configuration from OpenMetadata connectionOptions.
         
-        # Connection settings
-        self.host = connection_options.get("host")
-        self.port = int(connection_options.get("port", 8181))
-        self.use_ssl = connection_options.get("useSSL", "false").lower() == "true"
+        Supports both modern (__dict__['root']) and legacy (__root__) structures
+        following the Dremio connector pattern for maximum robustness.
+        
+        Returns:
+            None (sets instance variables)
+        """
+        service_conn = self.config.serviceConnection
+        opts = {}
+        
+        # Modern structure (OpenMetadata 1.3+)
+        if hasattr(service_conn, '__dict__') and 'root' in service_conn.__dict__:
+            root = service_conn.__dict__['root']
+            if hasattr(root, 'config') and hasattr(root.config, 'connectionOptions'):
+                conn_opts = root.config.connectionOptions
+                if hasattr(conn_opts, 'root') and isinstance(conn_opts.root, dict):
+                    opts = conn_opts.root
+                    logger.debug("✅ Using modern __dict__['root'] structure")
+        # Fallback to legacy structure (OpenMetadata <1.3)
+        elif hasattr(service_conn, '__root__'):
+            root = service_conn.__root__
+            if hasattr(root, 'config') and hasattr(root.config, 'connectionOptions'):
+                conn_opts = root.config.connectionOptions
+                if hasattr(conn_opts, 'root') and isinstance(conn_opts.root, dict):
+                    opts = conn_opts.root
+                    logger.debug("✅ Using legacy __root__ structure")
+        else:
+            logger.warning("⚠️  No connectionOptions found, using defaults")
+        
+        # Connection settings with robust type conversion
+        self.host = opts.get("host", "localhost")
+        
+        port_str = opts.get("port", "8181")
+        try:
+            self.port = int(port_str)
+        except (ValueError, TypeError):
+            logger.warning(f"⚠️  Invalid port '{port_str}'. Defaulting to 8181.")
+            self.port = 8181
+        
+        # Boolean conversion (Dremio pattern)
+        self.use_ssl = opts.get("useSSL", "false").lower() == "true"
+        self.classification_enabled = opts.get("classificationEnabled", "true").lower() == "true"
+        
         self.service_name = self.config.serviceName
         
         # Authentication configuration
-        self.auth_type = connection_options.get("authType", "oauth2")
-        self.client_id = connection_options.get("clientId")
-        self.client_secret = connection_options.get("clientSecret")
-        self.token_url = connection_options.get("tokenUrl", "/v1/oauth/token")
-        self.api_key = connection_options.get("apiKey")
-        self.username = connection_options.get("username")
-        self.password = connection_options.get("password")
+        self.auth_type = opts.get("authType", "oauth2")
+        self.client_id = opts.get("clientId")
+        self.client_secret = opts.get("clientSecret")
+        self.token_url = opts.get("tokenUrl", "/v1/oauth/token")
+        self.api_key = opts.get("apiKey")
+        self.username = opts.get("username")
+        self.password = opts.get("password")
         
-        # Connection timeouts
-        self.connection_timeout = int(connection_options.get("connectionTimeout", 30))
-        self.request_timeout = int(connection_options.get("requestTimeout", 60))
+        # Connection timeouts with robust conversion
+        timeout_conn_str = opts.get("connectionTimeout", "30")
+        try:
+            self.connection_timeout = int(timeout_conn_str)
+        except (ValueError, TypeError):
+            logger.warning(f"⚠️  Invalid connectionTimeout '{timeout_conn_str}'. Defaulting to 30.")
+            self.connection_timeout = 30
         
-        # Filter configuration
-        catalog_filter_str = connection_options.get("catalogFilter", "")
+        timeout_req_str = opts.get("requestTimeout", "60")
+        try:
+            self.request_timeout = int(timeout_req_str)
+        except (ValueError, TypeError):
+            logger.warning(f"⚠️  Invalid requestTimeout '{timeout_req_str}'. Defaulting to 60.")
+            self.request_timeout = 60
+        
+        # Filter configuration (lists)
+        catalog_filter_str = opts.get("catalogFilter", "")
         self.catalog_filter = [c.strip() for c in catalog_filter_str.split(",") if c.strip()] if catalog_filter_str else []
         
-        namespace_filter_str = connection_options.get("namespaceFilter", "")
+        namespace_filter_str = opts.get("namespaceFilter", "")
         self.namespace_filter = [n.strip() for n in namespace_filter_str.split(",") if n.strip()] if namespace_filter_str else []
         
-        # Classification (auto-tagging)
-        classification_enabled_str = connection_options.get("classificationEnabled", "true")
-        self.classification_enabled = classification_enabled_str.lower() == 'true'
-        
-        # Default tags
-        default_tags_str = connection_options.get("defaultTags", "")
+        # Default tags (list)
+        default_tags_str = opts.get("defaultTags", "")
         self.default_tags_fqns = [tag.strip() for tag in default_tags_str.split(",") if tag.strip()]
+        
+        # Detailed logging (Dremio style)
+        logger.info(f"📋 Found connectionOptions:")
+        logger.info(f"   - Host: {self.host}:{self.port}")
+        logger.info(f"   - SSL: {'enabled' if self.use_ssl else 'disabled'}")
+        logger.info(f"   - Auth: {self.auth_type}")
+        if self.auth_type == "oauth2":
+            logger.info(f"   - Client ID: {self.client_id}")
+        elif self.auth_type == "basic":
+            logger.info(f"   - Username: {self.username}")
+        logger.info(f"⏱️  Timeouts: connection={self.connection_timeout}s, request={self.request_timeout}s")
+        logger.info(f"🔍 Filters:")
+        logger.info(f"   - Catalogs: {self.catalog_filter or ['*']}")
+        logger.info(f"   - Namespaces: {self.namespace_filter or ['*']}")
+        logger.info(f"🏷️  Classification: {'enabled' if self.classification_enabled else 'disabled'}")
+        if self.default_tags_fqns:
+            logger.info(f"🏷️  Default tags: {', '.join(self.default_tags_fqns)}")
 
     def prepare(self):
         """Preliminary checks before ingestion starts."""
