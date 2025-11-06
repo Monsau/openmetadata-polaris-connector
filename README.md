@@ -4,8 +4,22 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](https://github.com/Monsau/openmetadata-polaris-connector)
 [![Architecture](https://img.shields.io/badge/architecture-Dremio--like-blue.svg)](docs/polaris/ARCHITECTURE.md)
+[![Status](https://img.shields.io/badge/status-bugfixed-success.svg)](BUGFIX_SUMMARY.md)
 
 > Connecteur OpenMetadata enterprise-grade pour l'ingestion de métadonnées depuis Apache Polaris avec architecture simplifiée (modèle Dremio).
+
+## 🐛 Important - Bugfix du 6 Nov 2025
+
+**Si vous avez l'erreur:** `AttributeError: 'NoneType' object has no attribute 'prepare'`
+
+➡️ **Solution:** [Guide de réinstallation](REINSTALL_GUIDE.md) | [Détails du bugfix](BUGFIX_SUMMARY.md)
+
+**Symptômes corrigés:**
+- ✅ Pipeline OpenMetadata qui échoue à l'instanciation
+- ✅ Logs montrant `'NoneType' object has no attribute 'prepare'`
+- ✅ 5 dernières exécutions en échec
+
+**Action requise:** Mettre à jour vers commit `223c35f` ou ultérieur
 
 ---
 
