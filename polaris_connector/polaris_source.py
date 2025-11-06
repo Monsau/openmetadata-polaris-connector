@@ -143,11 +143,11 @@ class PolarisSource(Source):
             logger.warning("⚠️  No connectionOptions found, using defaults")
         
         # Connection settings with robust type conversion
-        self.host = opts.get("host", "localhost")
+        self.host = opts.get("host", "localhost").strip()  # Strip whitespace
         
         port_str = opts.get("port", "8181")
         try:
-            self.port = int(port_str)
+            self.port = int(str(port_str).strip())  # Strip whitespace before conversion
         except (ValueError, TypeError):
             logger.warning(f"⚠️  Invalid port '{port_str}'. Defaulting to 8181.")
             self.port = 8181
@@ -158,14 +158,14 @@ class PolarisSource(Source):
         
         self.service_name = self.config.serviceName
         
-        # Authentication configuration
-        self.auth_type = opts.get("authType", "oauth2")
-        self.client_id = opts.get("clientId")
-        self.client_secret = opts.get("clientSecret")
-        self.token_url = opts.get("tokenUrl", "/v1/oauth/token")
-        self.api_key = opts.get("apiKey")
-        self.username = opts.get("username")
-        self.password = opts.get("password")
+        # Authentication configuration (strip whitespace)
+        self.auth_type = opts.get("authType", "oauth2").strip()
+        self.client_id = opts.get("clientId", "").strip() if opts.get("clientId") else None
+        self.client_secret = opts.get("clientSecret", "").strip() if opts.get("clientSecret") else None
+        self.token_url = opts.get("tokenUrl", "/v1/oauth/token").strip()
+        self.api_key = opts.get("apiKey", "").strip() if opts.get("apiKey") else None
+        self.username = opts.get("username", "").strip() if opts.get("username") else None
+        self.password = opts.get("password", "").strip() if opts.get("password") else None
         
         # Connection timeouts with robust conversion
         timeout_conn_str = opts.get("connectionTimeout", "30")
