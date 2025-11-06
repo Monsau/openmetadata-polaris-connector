@@ -11,7 +11,7 @@ __version__ = "2.0.0"
 __author__ = "Mustapha Fonsau"
 __email__ = "mfonsau@talentys.eu"
 
-from .polaris_source import PolarisSource, PolarisConnector
+from .polaris_source import PolarisSource
 from .core.sync_engine import (
     PolarisAutoDiscovery,
     PolarisOpenMetadataSync,
@@ -20,7 +20,6 @@ from .core.sync_engine import (
 
 __all__ = [
     "PolarisSource",
-    "PolarisConnector",
     "PolarisAutoDiscovery",
     "PolarisOpenMetadataSync",
     "sync_polaris_to_openmetadata"

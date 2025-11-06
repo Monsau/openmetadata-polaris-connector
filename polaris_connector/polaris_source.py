@@ -13,7 +13,7 @@ from .core.sync_engine import PolarisAutoDiscovery
 
 # OpenMetadata imports
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
-from metadata.generated.schema.entity.data.table import Column, DataType
+from metadata.generated.schema.entity.data.table import Column, DataType, Table
 from metadata.generated.schema.entity.data.database import Database
 from metadata.generated.schema.entity.data.databaseSchema import DatabaseSchema
 from metadata.generated.schema.type.tagLabel import TagLabel, LabelType, State, TagSource
@@ -25,8 +25,9 @@ from metadata.generated.schema.metadataIngestion.workflow import Source as Workf
 from metadata.ingestion.api.models import Either, StackTraceError
 from metadata.ingestion.api.steps import Source
 from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.utils.logger import ingestion_logger
 
-logger = logging.getLogger(__name__)
+logger = ingestion_logger()
 
 # Mapping Iceberg/Polaris types to OpenMetadata DataTypes
 POLARIS_TO_OM_TYPE = {
@@ -78,6 +79,7 @@ class PolarisSource(Source):
         super().__init__()
         self.config = config
         self.metadata = metadata
+        self.status = self.get_status()
         
         # Parse configuration from OpenMetadata
         self._parse_connection_config()
@@ -98,13 +100,15 @@ class PolarisSource(Source):
             request_timeout=self.request_timeout
         )
         
-        # Test connection and authenticate
-        if not self.discovery_engine.authenticate():
-            raise ValueError("Polaris authentication failed")
-        
         logger.info(f"PolarisSource initialized for {self.host}:{self.port}")
         logger.info(f"Catalog filter: {self.catalog_filter}")
         logger.info(f"Namespace filter: {self.namespace_filter}")
+    
+    @classmethod
+    def create(cls, config_dict: dict, metadata: OpenMetadata):
+        """Factory method required by OpenMetadata framework."""
+        config = WorkflowSource.model_validate(config_dict)
+        return cls(config, metadata)
 
     def _parse_connection_config(self):
         """
@@ -220,7 +224,11 @@ class PolarisSource(Source):
         if self.auth_type == "basic" and (not self.username or not self.password):
             raise ValueError("username and password are required for basic authentication")
         
-        logger.info(f"Preparing to ingest metadata from Polaris: {self.host}:{self.port}")
+        # Test connection and authenticate
+        if not self.discovery_engine.authenticate():
+            raise ValueError("Polaris authentication failed")
+        
+        logger.info(f"✅ Preparing to ingest metadata from Polaris: {self.host}:{self.port}")
 
     def _convert_iceberg_schema_to_columns(self, schema_fields: List[Dict[str, Any]]) -> List[Column]:
         """
@@ -347,7 +355,7 @@ class PolarisSource(Source):
         
         return tags
 
-    def next_record(self) -> Iterable[Either[dict]]:
+    def next_record(self) -> Iterable[Either]:
         """Main generator that orchestrates the ingestion."""
         try:
             # Create or get service entity
@@ -391,16 +399,16 @@ class PolarisSource(Source):
                         name=polaris_table.table_name,
                         databaseSchema=schema_entity.fullyQualifiedName,
                         columns=columns,
-                        tags=tags,
+                        tags=tags if tags else None,
                         description=f"Iceberg table from Polaris catalog {polaris_table.catalog_name}",
                         tableType="Iceberg"
                     )
                     
-                    # Create or update table
-                    created_table = self.metadata.create_or_update(create_table_request)
-                    logger.info(f"✅ Table created/updated: {created_table.fullyQualifiedName.root}")
+                    # Yield the create request
+                    yield Either(right=create_table_request)
                     
-                    self.status.scanned(created_table.fullyQualifiedName.root)
+                    logger.info(f"✅ Table yielded: {polaris_table.catalog_name}.{polaris_table.namespace_name}.{polaris_table.table_name}")
+                    self.status.scanned(f"{polaris_table.catalog_name}.{polaris_table.namespace_name}.{polaris_table.table_name}")
                 
                 except Exception as e:
                     error_msg = f"Failed to process table {polaris_table.catalog_name}.{polaris_table.namespace_name}.{polaris_table.table_name}: {str(e)}"
@@ -419,14 +427,19 @@ class PolarisSource(Source):
 
     def _get_or_create_service(self) -> DatabaseService:
         """Get or create the DatabaseService entity."""
-        service = self.metadata.get_by_name(entity=DatabaseService, fqn=self.service_name)
-        if service:
-            return service
+        try:
+            service = self.metadata.get_by_name(entity=DatabaseService, fqn=self.service_name)
+            if service:
+                logger.info(f"✅ Service found: {self.service_name}")
+                return service
+        except Exception as e:
+            logger.debug(f"Service not found, will create: {e}")
         
+        logger.info(f"Creating new service: {self.service_name}")
         service_request = CreateDatabaseServiceRequest(
             name=self.service_name,
             serviceType="CustomDatabase",
-            connection=self.config.serviceConnection.root
+            connection=self.config.serviceConnection
         )
         return self.metadata.create_or_update(service_request)
 
@@ -467,20 +480,3 @@ class PolarisSource(Source):
         if self.discovery_engine:
             self.discovery_engine.close()
         logger.info("PolarisSource closed")
-
-
-class PolarisConnector:
-    """
-    Alias pour compatibilité backward.
-    Utilise PolarisSource en interne.
-    """
-    
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
-        """Initialize connector."""
-        self.source = PolarisSource(config, metadata)
-    
-    @classmethod
-    def create(cls, config_dict: dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None):
-        """Factory method for OpenMetadata."""
-        config = WorkflowSource.model_validate(config_dict)
-        return cls(config, metadata)
