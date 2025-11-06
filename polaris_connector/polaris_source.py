@@ -105,9 +105,9 @@ class PolarisSource(Source):
         logger.info(f"Namespace filter: {self.namespace_filter}")
     
     @classmethod
-    def create(cls, config_dict: dict, metadata: OpenMetadata):
+    def create(cls, config_dict: dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None):
         """Factory method required by OpenMetadata framework."""
-        config = WorkflowSource.model_validate(config_dict)
+        config = WorkflowSource.parse_obj(config_dict)
         return cls(config, metadata)
 
     def _parse_connection_config(self):
