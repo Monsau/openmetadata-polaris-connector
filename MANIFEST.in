@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+include requirements.txt
+include pyproject.toml
+recursive-include polaris_connector *.py *.json
+recursive-include docs *.md
