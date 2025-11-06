@@ -10,16 +10,19 @@
 
 ## 🐛 Important - Bugfix du 6 Nov 2025
 
-**Si vous avez l'erreur:** `AttributeError: 'NoneType' object has no attribute 'prepare'`
+**Si vous avez l'erreur:** `AttributeError: 'NoneType' object has no attribute 'prepare'`  
+**OU:** `error in 'egg_base' option: 'connectors' does not exist`
 
-➡️ **Solution:** [Guide de réinstallation](REINSTALL_GUIDE.md) | [Détails du bugfix](BUGFIX_SUMMARY.md)
+➡️ **Solution:** [Guide d'installation v2.0](INSTALL.md)
 
-**Symptômes corrigés:**
+**Correctifs v2.0:**
 - ✅ Pipeline OpenMetadata qui échoue à l'instanciation
 - ✅ Logs montrant `'NoneType' object has no attribute 'prepare'`
-- ✅ 5 dernières exécutions en échec
+- ✅ Erreur de packaging `'connectors' does not exist`
+- ✅ Ajout `pyproject.toml` (PEP 517/518)
+- ✅ Architecture modernisée
 
-**Action requise:** Mettre à jour vers commit `223c35f` ou ultérieur
+**Action requise:** Mettre à jour vers commit `aaedd92` ou ultérieur
 
 ---
 
